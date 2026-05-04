@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Player Archetypes</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='archetypes.css') }}">
+</head>
+<body>
+    <main class="page">
+        <section class="hero">
+            <p class="eyebrow">Tactical roles</p>
+            <h1>Player Archetypes</h1>
+            <p>Filter players by area and archetype to build a role-first shortlist for your tactical model.</p>
+        </section>
+
+        <section class="panel">
+            <form action="{{ url_for('archetypes') }}" method="GET">
+                <div>
+                    <label for="area">Area</label>
+                    <select name="area" id="area" onchange="updateArchetypes()">
+                        <option value="">Select an area</option>
+                        <option value="forward" {% if area == 'forward' %}selected{% endif %}>Forward</option>
+                        <option value="midfielder" {% if area == 'midfielder' %}selected{% endif %}>Midfielder</option>
+                        <option value="defender" {% if area == 'defender' %}selected{% endif %}>Defender</option>
+                        <option value="goalkeeper" {% if area == 'goalkeeper' %}selected{% endif %}>Goalkeeper</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="archetype">Archetype</label>
+                    <select name="archetype" id="archetype" style="display:none;"></select>
+                </div>
+
+                <div>
+                    <button type="submit">Filter players</button>
+                </div>
+            </form>
+        </section>
+
+        <section class="panel">
+            {% if players %}
+                <div class="section-title">
+                    <div>
+                        <h2>Archetype matches</h2>
+                        <p>FIFA version, short name, age, overall, potential, positions, and archetype.</p>
+                    </div>
+                </div>
+                <ul>
+                    {% for player in players %}
+                        <li>{{ player['fifa_version'] }} | {{ player['short_name'] }} | Age {{ player['age'] }} | OVR {{ player['overall'] }} | POT {{ player['potential'] }} | {{ player['player_positions'] }} | {{ player['archtype'] }}</li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p class="empty-state">Select an area and archetype to view matching players.</p>
+            {% endif %}
+
+            <div class="pagination">
+                {% if page > 1 %}
+                    <a href="?area={{ area }}&archetype={{ archetype }}&page={{ page - 1 }}">Previous</a>
+                {% endif %}
+
+                <span>Page {{ page }} of {{ total_pages }}</span>
+
+                {% if page < total_pages %}
+                    <a href="?area={{ area }}&archetype={{ archetype }}&page={{ page + 1 }}">Next</a>
+                {% endif %}
+            </div>
+        </section>
+
+        <script>
+        function updateArchetypes() {
+            const area = document.getElementById("area").value;
+            const archetypeSelect = document.getElementById("archetype");
+
+            archetypeSelect.innerHTML = "";
+
+            let options = [];
+
+            if (area === "forward") {
+                options = ["Budget Finisher", "Physical Target Man", "Elite Target Poacher", "Multi-Position Specialist", "Technical Inside Forward", "Complete Forward"];
+            }
+            else if (area === "midfielder") {
+                options = ["Explosive Playmaker", "Defensive Specialist", "Low-Tier Creative Utility", "Technical Playmaker", "Physical Destroyer", "Versatile Defensive Workhorse", "Creative Engine", "Agile Transition Winger"];
+            }
+            else if (area === "defender") {
+                options = ["Elite Offensive Full-back", "Low-Tier Defensive Full-back", "Physical No-Nonsense CB", "Versatile Defensive Utility", "Budget Defensive Specialist", "Ball-Playing Defender"];
+            }
+            else if (area === "goalkeeper") {
+                options = ["Modern Sweeper-Keeper", "Traditional Goalkeeper"];
+            }
+
+            if (options.length > 0) {
+                archetypeSelect.style.display = "inline";
+
+                options.forEach(opt => {
+                    const option = document.createElement("option");
+                    option.value = opt;
+                    option.text = opt;
+                    archetypeSelect.appendChild(option);
+                });
+            } else {
+                archetypeSelect.style.display = "none";
+            }
+        }
+        </script>
+    </main>
+</body>
+</html>

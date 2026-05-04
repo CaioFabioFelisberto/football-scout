@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wonder Kids</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='wonderkids.css') }}">
+</head>
+<body>
+    <main class="page">
+        <section class="hero">
+            <p class="eyebrow">Youth scouting</p>
+            <h1>Wonder Kids</h1>
+            <p>Search for high-upside prospects by position and review their market value, potential, and current level in a clean shortlist view.</p>
+        </section>
+
+        <section class="panel">
+            <form action="{{ url_for('wonderkids') }}" method="GET">
+                <div>
+                    <label for="players_position">Position</label>
+                    <input type="text" name="players_position" id="players_position" placeholder="ST, LW, CM..." value="{{ position }}">
+                </div>
+                <div>
+                    <button type="submit">Find wonder kids</button>
+                </div>
+            </form>
+        </section>
+
+        <section class="panel">
+            {% if players %}
+                <div class="section-title">
+                    <div>
+                        <h2>Prospects for {{ position }}</h2>
+                        <p>FIFA version, name, age, overall, potential, positions, club, league, and value.</p>
+                    </div>
+                </div>
+                <ul>
+                    {% for player in players %}
+                        <li>{{ player['fifa_version'] }} | {{ player['long_name'] }} | Age {{ player['age'] }} | OVR {{ player['overall'] }} | POT {{ player['potential'] }} | {{ player['player_positions'] }} | {{ player['club_name'] }} | {{ player['league_name'] }} | {{ player['value_eur'] | format_money }}</li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p class="empty-state">Enter a position to see wonder kids for your shortlist.</p>
+            {% endif %}
+
+            <div class="pagination">
+                {% if page > 1 %}
+                    <a href="?players_position={{ position }}&page={{ page - 1 }}">Previous</a>
+                {% endif %}
+
+                <span>Page {{ page }} of {{ total_pages }}</span>
+
+                {% if page < total_pages %}
+                    <a href="?players_position={{ position }}&page={{ page + 1 }}">Next</a>
+                {% endif %}
+            </div>
+        </section>
+    </main>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Similar Players</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='similar_players.css') }}">
+</head>
+<body>
+    <main class="page">
+        <section class="hero">
+            <p class="eyebrow">Profile matching</p>
+            <h1>Similar Players</h1>
+            <p>Use a player name to uncover stylistic matches and alternative targets with a similar scouting profile.</p>
+        </section>
+
+        <section class="panel">
+            <form action="{{ url_for('similar_players') }}" method="GET">
+                <div>
+                    <label for="player_name">Player name</label>
+                    <input type="text" id="player_name" name="player_name" placeholder="Search a player name" value="{{ player_name }}" required>
+                </div>
+                <div>
+                    <button type="submit">Find similar players</button>
+                </div>
+            </form>
+        </section>
+
+        <section class="panel">
+            {% if similar_players %}
+                <div class="section-title">
+                    <div>
+                        <h2>Players similar to {{ player_name }}</h2>
+                        <p>Short name, age, overall, similarity, positions, and value.</p>
+                    </div>
+                </div>
+                <ul>
+                    {% for player in similar_players %}
+                        <li>{{ player['short_name'] }} | Age {{ player['age'] }} | OVR {{ player['overall'] }} | Similarity {{ player['similarity'] }} | {{ player['player_positions'] }} | {{ player['value_eur'] | format_money }}</li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p class="empty-state">Search for a player to see close stylistic matches.</p>
+            {% endif %}
+
+            <div class="pagination">
+                {% if page > 1 %}
+                    <a href="?player_name={{ player_name }}&page={{ page - 1 }}">Previous</a>
+                {% endif %}
+
+                <span>Page {{ page }} of {{ total_pages }}</span>
+
+                {% if page < total_pages %}
+                    <a href="?player_name={{ player_name }}&page={{ page + 1 }}">Next</a>
+                {% endif %}
+            </div>
+        </section>
+    </main>
+</body>
+</html>

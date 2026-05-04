@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Players Comparison</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='players_comparison.css') }}">
+</head>
+<body>
+    <main class="page">
+        <section class="hero">
+            <p class="eyebrow">Head-to-head analysis</p>
+            <h1>Players Comparison</h1>
+            <p>Compare two players side by side to spot role fit, strengths, and tactical differences.</p>
+        </section>
+
+        <section class="panel">
+            <form action="{{ url_for('players_comparison') }}" method="GET">
+                <div>
+                    <label for="player1">Player 1</label>
+                    <input type="text" id="player1" name="player1" placeholder="First player" required>
+                </div>
+
+                <div>
+                    <label for="player2">Player 2</label>
+                    <input type="text" id="player2" name="player2" placeholder="Second player" required>
+                </div>
+
+                <div>
+                    <button type="submit">Compare players</button>
+                </div>
+            </form>
+
+            {% if error %}
+                <p class="message">{{ error }}</p>
+            {% endif %}
+
+            {% if comparison %}
+                <div class="section-title" style="margin-top: 18px;">
+                    <div>
+                        <h2>{{ player1 }} vs {{ player2 }}</h2>
+                        <p>Comparison output rendered below.</p>
+                    </div>
+                </div>
+                <div class="comparison-output">
+                    {{ comparison | safe }}
+                </div>
+            {% endif %}
+        </section>
+    </main>
+</body>
+</html>

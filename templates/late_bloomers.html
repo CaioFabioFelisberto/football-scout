@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Late Bloomers</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Late Bloomers</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='late_bloomers.css') }}">
+    <main class="page">
+        <section class="hero">
+            <p class="eyebrow">Development arcs</p>
+            <h1>Late Bloomers</h1>
+            <p>Find players who improved later in their career and still offer meaningful upside for the right role.</p>
+        </section>
+
+        <section class="panel">
+            <form action="{{ url_for('late_bloomers') }}" method="GET">
+                <div>
+                    <label for="players_position">Position</label>
+                    <input type="text" name="players_position" id="players_position" placeholder="ST, LW, CM..." value="{{ position }}">
+                </div>
+                <div>
+                    <button type="submit">Find late bloomers</button>
+                </div>
+            </form>
+        </section>
+
+        <section class="panel">
+            {% if players %}
+                <div class="section-title">
+                    <div>
+                        <h2>Late bloomers for {{ position }}</h2>
+                        <p>FIFA version, name, age, overall, and positions.</p>
+                    </div>
+                </div>
+                <ul>
+                    {% for player in players %}
+                        <li>{{ player['fifa_version'] }} | {{ player['long_name'] }} | Age {{ player['age'] }} | OVR {{ player['overall'] }} | {{ player['player_positions'] }}</li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p class="empty-state">Enter a position to surface players who developed later.</p>
+            {% endif %}
+
+            <div class="pagination">
+                {% if page > 1 %}
+                    <a href="?players_position={{ position }}&page={{ page - 1 }}">Previous</a>
+                {% endif %}
+
+                <span>Page {{ page }} of {{ total_pages }}</span>
+
+                {% if page < total_pages %}
+                    <a href="?players_position={{ position }}&page={{ page + 1 }}">Next</a>
+                {% endif %}
+            </div>
+        </section>
+    </main>
+
+    
+
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Players by League</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='players_by_league.css') }}">
+</head>
+<body>
+    <main class="page">
+        <section class="hero">
+            <p class="eyebrow">Market filtering</p>
+            <h1>Players by League</h1>
+            <p>Search a competition by position and budget to build a league-specific shortlist.</p>
+        </section>
+
+        <section class="panel">
+            <form action="{{ url_for('players_by_league') }}" method="GET">
+                <div>
+                    <label for="position">Position</label>
+                    <input type="text" name="position" id="position" placeholder="ST, CM, LB..." value="{{ position }}" required>
+                </div>
+                <div>
+                    <label for="league">League</label>
+                    <input type="text" name="league" id="league" placeholder="Premier League, Serie A..." value="{{ league }}" required>
+                </div>
+                <div>
+                    <label for="value">Max value (€)</label>
+                    <input type="number" name="value" id="value" placeholder="20000000" value="{{ value }}" required>
+                </div>
+                <div>
+                    <button type="submit">Show players</button>
+                </div>
+            </form>
+        </section>
+
+        <section class="panel">
+            {% if players %}
+                <div class="section-title">
+                    <div>
+                        <h2>Players in {{ league }} for {{ position }}</h2>
+                        <p>FIFA version, short name, overall, and value.</p>
+                    </div>
+                </div>
+                <ul>
+                    {% for player in players %}
+                        <li>FIFA {{ player['fifa_version'] }} | {{ player['short_name'] }} | OVR {{ player['overall'] }} | {{ player['value_eur'] | format_money }}</li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p class="empty-state">No players found for the selected filters.</p>
+            {% endif %}
+
+            <div class="pagination">
+                {% if page > 1 %}
+                    <a href="{{ url_for('players_by_league', position=position, league=league, value=value, page=page-1) }}">Previous</a>
+                {% endif %}
+
+                <span>Page {{ page }} of {{ total_pages }}</span>
+
+                {% if page < total_pages %}
+                    <a href="{{ url_for('players_by_league', position=position, league=league, value=value, page=page+1) }}">Next</a>
+                {% endif %}
+            </div>
+        </section>
+    </main>
+</body>
+</html>

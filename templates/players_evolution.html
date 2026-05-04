@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Player Evolution</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='players_evolution.css') }}">
+</head>
+<body>
+    <main class="page">
+        <section class="hero">
+            <p class="eyebrow">Growth projection</p>
+            <h1>Player Evolution</h1>
+            <p>Project how a player may develop over the next seasons and use the result to support long-term scouting decisions.</p>
+        </section>
+
+        <section class="panel">
+            <form action="{{ url_for('players_evolution') }}" method="GET">
+                <div>
+                    <label for="player_name">Player name</label>
+                    <input type="text" name="player_name" id="player_name" placeholder="Enter a player name" value="{{ player_name }}">
+                </div>
+                <div>
+                    <label for="years_ahead">Years ahead</label>
+                    <input type="number" name="years_ahead" id="years_ahead" placeholder="5" value="{{ years_ahead }}">
+                </div>
+                <div>
+                    <button type="submit">Show evolution</button>
+                </div>
+            </form>
+        </section>
+
+        <section class="panel">
+            <div class="section-title">
+                <div>
+                    <h2>{{ player_name }} evolution</h2>
+                    <p>Projection chart and development summary.</p>
+                </div>
+            </div>
+
+            {% if evolution_html %}
+                <div class="comparison-output">
+                    {{ evolution_html | safe }}
+                </div>
+            {% else %}
+                <p class="empty-state">Search for a player to generate an evolution projection.</p>
+            {% endif %}
+        </section>
+    </main>
+</body>
+</html>

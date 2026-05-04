@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Football Scout Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+</head>
+<body>
+    <main class="page">
+        <section class="hero">
+            <p class="eyebrow">Football scouting toolkit</p>
+            <h1>Scout smarter, not harder.</h1>
+            <p>Explore young talents, low-cost options, positional profiles, and player growth with a clean scouting workspace built for quick decisions.</p>
+            <div class="stat-strip">
+                <div class="stat"><strong>9</strong><span>scouting views</span></div>
+                <div class="stat"><strong>Light</strong><span>high-contrast interface</span></div>
+                <div class="stat"><strong>Fast</strong><span>filters and comparisons</span></div>
+            </div>
+        </section>
+
+        <section class="panel">
+            <div class="section-title">
+                <div>
+                    <h2>Choose a scouting view</h2>
+                    <p>Jump straight to the analysis that matters for your shortlist.</p>
+                </div>
+            </div>
+
+            <div class="nav-grid">
+                <article class="dashboard-card">
+                    <h2>Wonder Kids</h2>
+                    <p>Filter emerging talents by position and track their ceiling.</p>
+                    <a href="{{ url_for('wonderkids') }}">Open view</a>
+                </article>
+                <article class="dashboard-card">
+                    <h2>Veterans</h2>
+                    <p>Find experienced players who still bring quality to the squad.</p>
+                    <a href="{{ url_for('veterans') }}">Open view</a>
+                </article>
+                <article class="dashboard-card">
+                    <h2>Bargain Players</h2>
+                    <p>Spot value picks with strong output for the price.</p>
+                    <a href="{{ url_for('bargain_players') }}">Open view</a>
+                </article>
+                <article class="dashboard-card">
+                    <h2>Similar Players</h2>
+                    <p>Search for stylistic matches and hidden alternatives.</p>
+                    <a href="{{ url_for('similar_players') }}">Open view</a>
+                </article>
+                <article class="dashboard-card">
+                    <h2>Archetypes</h2>
+                    <p>Group players by tactical role and squad function.</p>
+                    <a href="{{ url_for('archetypes') }}">Open view</a>
+                </article>
+                <article class="dashboard-card">
+                    <h2>Players by League</h2>
+                    <p>Search the market by competition, position, and budget.</p>
+                    <a href="{{ url_for('players_by_league') }}">Open view</a>
+                </article>
+                <article class="dashboard-card">
+                    <h2>Players Comparison</h2>
+                    <p>Put two players side by side and compare their profiles.</p>
+                    <a href="{{ url_for('players_comparison') }}">Open view</a>
+                </article>
+                <article class="dashboard-card">
+                    <h2>Late Bloomers</h2>
+                    <p>Identify players who improved later in their career arc.</p>
+                    <a href="{{ url_for('late_bloomers') }}">Open view</a>
+                </article>
+                <article class="dashboard-card">
+                    <h2>Player Evolution</h2>
+                    <p>Project a player's development over the next few seasons.</p>
+                    <a href="{{ url_for('players_evolution') }}">Open view</a>
+                </article>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
