@@ -1,0 +1,35 @@
+⚙️ Instalação e Configuração
+Pré-requisitos
+Python 3.8 ou superior instalado.
+
+Ficheiro de dados male_players(legacy).csv na raiz do projeto.
+
+Passo a Passo
+Clone o repositório:
+
+Bash
+git clone [https://github.com/seu-usuario/football-scout.git](https://github.com/seu-usuario/football-scout.git)
+cd football-scout
+Crie um ambiente virtual:
+
+Bash
+# Windows
+python -m venv venv
+.\\venv\\Scripts\\activate
+
+# Linux/MacOS
+python3 -m venv venv
+source venv/bin/activate
+Instale as dependências:
+
+Bash
+pip install flask pandas numpy scikit-learn plotly
+🚀 Como Usar
+Certifique-se de que o ficheiro male_players(legacy).csv está na pasta raiz.
+
+Inicie o servidor Flask:
+
+Bash
+python app.py
+Aceda à aplicação no seu navegador:
+http://localhost:5000

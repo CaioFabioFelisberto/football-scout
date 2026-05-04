@@ -8,7 +8,7 @@ from sklearn.preprocessing import StandardScaler
 cols = ['player_id', 'short_name', 'long_name', 'fifa_version', 'overall', 'potential', 'value_eur', 'player_positions', 'preferred_foot',
         'league_name', 'club_name', 'nationality_name', 'pace', 'shooting', 'passing', 'dribbling', 'defending', 'physic', 'age', 'height_cm', 'weight_kg', 'goalkeeping_handling', 'goalkeeping_diving', 'goalkeeping_kicking', 'goalkeeping_positioning', 'goalkeeping_speed', 'goalkeeping_reflexes']
 
-df = pd.read_csv('male_players(legacy).csv', usecols=cols, low_memory=False)
+df = pd.read_csv('data/male_players(legacy).csv', usecols=cols, low_memory=False)
 
 df_sorted = df.sort_values(
     by=['player_id', 'fifa_version'], ascending=[True, False])

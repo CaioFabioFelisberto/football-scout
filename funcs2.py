@@ -11,7 +11,7 @@ from sklearn.ensemble import RandomForestRegressor
 cols = ['player_id', 'short_name', 'long_name', 'fifa_version', 'overall', 'potential', 'value_eur', 'player_positions', 'preferred_foot',
         'league_name', 'club_name', 'nationality_name', 'pace', 'shooting', 'passing', 'dribbling', 'defending', 'physic', 'age', 'height_cm', 'weight_kg', 'goalkeeping_handling', 'goalkeeping_diving', 'goalkeeping_kicking', 'goalkeeping_positioning', 'goalkeeping_speed', 'goalkeeping_reflexes']
 
-df = pd.read_csv('male_players(legacy).csv', usecols=cols, low_memory=False)
+df = pd.read_csv('data/male_players(legacy).csv', usecols=cols, low_memory=False)
 
 def get_players_comparison(name1,name2):
     df_player1 = df[df['long_name'].str.contains(name1, case=False, na=False)]
