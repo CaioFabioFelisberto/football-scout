@@ -55,7 +55,8 @@ football-scout/
 ├── app.py                  # Aplicação Flask principal (rotas e inicialização)
 ├── funcs1.py               # Lógica de filtragem e análise de dados básica
 ├── funcs2.py               # Funções avançadas, visualizações e ML
-├── male_players(legacy).csv # Dataset principal (necessário para execução)
+├── data/
+│   ├──male_players(legacy).csv # Dataset principal (necessário para execução)
 ├── templates/              # Ficheiros HTML (Jinja2)
 │   ├── index.html
 │   ├── wonderkids.html
