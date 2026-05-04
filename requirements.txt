@@ -8,7 +8,7 @@ Passo a Passo
 Clone o repositório:
 
 Bash
-git clone [https://github.com/seu-usuario/football-scout.git](https://github.com/seu-usuario/football-scout.git)
+git clone [https://github.com/CaioFabioFelisberto/football-scout.git](https://github.com/CaioFabioFelisberto/football-scout.git)
 cd football-scout
 Crie um ambiente virtual:
 
